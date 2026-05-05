@@ -37,9 +37,31 @@
   JOIN tracks t ON g.GenreId = t.GenreId
   GROUP by g.GenreId
 
-10) (EN PROGRESO) SELECT c.FirstName FROM customers c
+10)SELECT c.FirstName, inv.InvoiceDate, art.name FROM customers c
 JOIN invoices inv ON c.CustomerId = inv.CustomerId
 JOIN invoice_items inv_i ON inv.InvoiceId = inv_i.InvoiceId
 JOIN tracks t ON inv_i.TrackId = t.TrackId
 JOIN albums a ON t.AlbumId = a.AlbumId
 JOIN artists art ON a.ArtistId = art.ArtistId
+ORDER by c.FirstName ASC
+
+11)SELECT c.FirstName, c.City, t.name AS Song, g.name AS Genre FROM customers c
+JOIN invoices inv ON c.CustomerId = inv.CustomerId
+JOIN invoice_items inv_i ON inv.InvoiceId = inv_i.InvoiceId
+JOIN tracks t ON inv_i.TrackId = t.TrackId
+JOIN albums a ON t.AlbumId = a.AlbumId
+JOIN artists art ON a.ArtistId = art.ArtistId
+JOIN genres g ON t.GenreId = g.GenreId
+
+12)SELECT c.FirstName, c.City, t.name AS Song, g.name AS Genre FROM customers c
+JOIN employees emp ON c.SupportRepId = emp.EmployeeId
+JOIN invoices inv ON c.CustomerId = inv.CustomerId
+JOIN invoice_items inv_i ON inv.InvoiceId = inv_i.InvoiceId
+JOIN tracks t ON inv_i.TrackId = t.TrackId
+JOIN albums a ON t.AlbumId = a.AlbumId
+JOIN artists art ON a.ArtistId = art.ArtistId
+JOIN genres g ON t.GenreId = g.GenreId
+JOIN playlist_track playlst ON t.TrackId = playlst.TrackId
+JOIN playlists plist ON playlst.PlaylistId = plist.PlaylistId
+JOIN media_types mt ON t.MediaTypeId = mt.MediaTypeId
+
